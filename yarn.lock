@@ -1208,6 +1208,11 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.7.tgz#98a993516c859eb0d5c4c8f098317a9ea68db9ad"
   integrity sha512-cxWFQVseBm6O9Gbw1IWb8r6OS4OhSt3hPZLkFApLjM8TEXROBuQGLAH2i2gZpcXdLBIrpXuTDhH7Vbm1iXmNGA==
 
+"@types/luxon@^1.26.5":
+  version "1.26.5"
+  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-1.26.5.tgz#843fb705e16e4d2a90847a351b799ea9d879859e"
+  integrity sha512-XeQxxRMyJi1znfzHw4CGDLyup/raj84SnjjkI2fDootZPGlB0yqtvlvEIAmzHDa5wiEI5JJevZOWxpcofsaV+A==
+
 "@types/node@*":
   version "14.14.41"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.41.tgz#d0b939d94c1d7bd53d04824af45f1139b8c45615"
@@ -1227,6 +1232,11 @@
   version "15.7.3"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
+"@types/react-native-dotenv@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-dotenv/-/react-native-dotenv-0.2.0.tgz#32c58422a422c1adf68acce363ed791314d5a8e7"
+  integrity sha512-ZxX+dU/yoQc0jTk+/NWttkiuXceJyN5FpOSqDl0WynN5GDzxwH7OMruQ47qcY8llo2RD3irjvzJ9BwC8gDiq0A==
 
 "@types/react-native@^0.64.0":
   version "0.64.4"
@@ -2377,6 +2387,11 @@ domexception@^2.0.1:
   integrity sha512-yxJ2mFy/sibVQlu5qHjOkf9J3K6zgmCxgJ94u2EdvDOV09H+32LtRswEcUsmUWN72pVLOEnTSRaIVVzVQgS0dg==
   dependencies:
     webidl-conversions "^5.0.0"
+
+dotenv@^8.0.0:
+  version "8.5.1"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.5.1.tgz#e3a4c7862daba51b92bce0da5c349f11faa28663"
+  integrity sha512-qC1FbhCH7UH7B+BcRNUDhAk04d/n+tnGGB1ctwndZkVFeehYJOn39pRWWzmdzpFqImyX1KB8tO0DCHLf8yRaYQ==
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"
@@ -4301,6 +4316,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+luxon@^1.26.0:
+  version "1.26.0"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.26.0.tgz#d3692361fda51473948252061d0f8561df02b578"
+  integrity sha512-+V5QIQ5f6CDXQpWNICELwjwuHdqeJM1UenlZWx5ujcRMc9venvluCjFb4t5NYLhb6IhkbMVOxzVuOqkgMxee2A==
+
 make-dir@^2.0.0, make-dir@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-2.1.0.tgz#5f0310e18b8be898cc07009295a30ae41e91e6f5"
@@ -5286,10 +5306,22 @@ react-native-codegen@^0.0.6:
     jscodeshift "^0.11.0"
     nullthrows "^1.1.1"
 
+react-native-dotenv@^2.5.5:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/react-native-dotenv/-/react-native-dotenv-2.5.5.tgz#5450fe79859f8553e893129d9fccc855cd38ecd9"
+  integrity sha512-ODaFNUX52ZYfBLJ8WSEm87nv+HrwxeEoZchuwsPyEWwsC4ARRhklfsKTf1dg09UpPS31zx5IUV431fLvcepCsA==
+  dependencies:
+    dotenv "^8.0.0"
+
 react-native-geolocation-service@^5.3.0-beta.1:
   version "5.3.0-beta.1"
   resolved "https://registry.yarnpkg.com/react-native-geolocation-service/-/react-native-geolocation-service-5.3.0-beta.1.tgz#91b78e8f87caa0fd4fd1a2384bb48a6309ec715a"
   integrity sha512-VfocBBSrUfXAdMikWYy8IY9ndzzn0uOM15ncs7DUMQvCpnayC92PJtRSZrSGKEuUubUkcXRqvZIMowZDMwHGVA==
+
+react-native-permissions@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.0.3.tgz#aa90649728a9720b0de9cfcfdb447b35a6630de0"
+  integrity sha512-8xiEnU29qHZcT05XXwhPHiLChTt82Pn5Z/nFdDOYGNFZ+IYSbYeGmIxFpratCRO6dgLptNaDFDPiyw2X7UZTeg==
 
 react-native@0.64.0:
   version "0.64.0"

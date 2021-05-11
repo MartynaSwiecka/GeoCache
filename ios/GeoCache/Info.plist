@@ -59,5 +59,19 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+     <key>NSLocationAlwaysUsageDescription</key>
+      <string>YOUR TEXT</string>
+      <key>NSLocationTemporaryUsageDescriptionDictionary</key>
+      <dict>
+        <key>YOUR-PURPOSE-KEY</key>
+        <string>YOUR TEXT</string>
+      </dict>
+      <key>NSLocationWhenInUseUsageDescription</key>
+       <string>YOUR TEXT</string>
 </dict>
 </plist>
