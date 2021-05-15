@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  Platform,
-} from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
-import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import React, { useEffect, useState, useContext } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Text } from '../components';
 import { colors } from '../styles/colors';
 import {
   getAstronomyInfo,
@@ -18,49 +9,11 @@ import {
 import { Coordinates, ForecastDataSet } from '../types/types';
 import { formatDateTime } from '../services/formatters/dateAndTime';
 import { roundHalf } from '../services/formatters/number';
+import { LocationContext } from '../services/context/LocationProvider';
 
 const App = () => {
-  const [location, setLocation] = useState<Coordinates>();
   const [forecast, setForecast] = useState<ForecastDataSet>();
-
-  useEffect(() => {
-    const permission =
-      Platform.OS === 'ios'
-        ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-        : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
-
-    let watcherId: number;
-    check(permission).then(permissionResult => {
-      if (permissionResult === RESULTS.GRANTED) {
-        watcherId = enableLocation();
-      } else if (permissionResult === RESULTS.DENIED) {
-        request(permission).then(result => {
-          if (result === RESULTS.GRANTED) {
-            watcherId = enableLocation();
-          }
-        });
-      }
-    });
-
-    return () => {
-      Geolocation.clearWatch(watcherId);
-    };
-  }, []);
-
-  const enableLocation = () => {
-    return Geolocation.watchPosition(
-      position => {
-        const { latitude, longitude } = position.coords;
-        setLocation({ latitude, longitude });
-      },
-      undefined,
-      {
-        enableHighAccuracy: true,
-        interval: 1000,
-        showLocationDialog: false,
-      },
-    );
-  };
+  const location = useContext(LocationContext) as Coordinates;
 
   useEffect(() => {
     if (!location) {
@@ -71,8 +24,6 @@ const App = () => {
         getAstronomyInfo(location),
         getWeather(location),
       ]);
-
-      console.log(astronomy, weather);
 
       const forecastData = astronomy.reduce<ForecastDataSet>(
         (results, { time, sunrise, sunset }) => {
@@ -87,8 +38,6 @@ const App = () => {
         const date = formatDateTime(time, 'dd/MM/yyyy');
         const hour = formatDateTime(time, 'HH:mm');
 
-        console.log(date, hour, forecastData[date], forecastData[date].weather);
-
         if (!forecastData[date]) {
           return;
         }
@@ -99,8 +48,6 @@ const App = () => {
         };
       });
 
-      console.log('forecastData', forecastData);
-
       setForecast(forecastData);
     };
 
@@ -109,7 +56,6 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={'light-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.content}>
@@ -123,18 +69,14 @@ const App = () => {
             <View style={styles.dayContainer} key={day}>
               <Text style={styles.day}>{day}</Text>
               <View style={styles.forecastContainer}>
-                <Text style={styles.text}>
+                <Text>
                   Temperature:
                   {roundHalf(forecast[day].weather['12:00'].airTemperature.sg)}
                   °C
                 </Text>
                 <View>
-                  <Text style={styles.text}>
-                    Sunrise: {formatDateTime(forecast[day].sunrise)}
-                  </Text>
-                  <Text style={styles.text}>
-                    Sunset: {formatDateTime(forecast[day].sunset)}
-                  </Text>
+                  <Text>Sunrise: {formatDateTime(forecast[day].sunrise)}</Text>
+                  <Text>Sunset: {formatDateTime(forecast[day].sunset)}</Text>
                 </View>
               </View>
             </View>
@@ -178,9 +120,6 @@ const styles = StyleSheet.create({
   forecastContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  text: {
-    color: colors.font,
   },
 });
 
