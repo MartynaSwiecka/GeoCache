@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,23 +7,45 @@ import {
   Button,
   SectionList,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
+import {
+  createStackNavigator,
+  StackNavigationProp,
+} from '@react-navigation/stack';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import { getCaches } from '../services/cache/cacheService';
 import { LocationContext } from '../services/context/LocationProvider';
 import { Text } from '../components';
 import { Coordinates, CachesDataSet } from '../types/types';
 import { colors } from '../styles/colors';
+import Cache from './Cache';
 
-const CachesList = () => {
+type RootStackParamList = {
+  CachesList: undefined;
+  Cache: { key: string };
+};
+
+type CachesListScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Cache'
+>;
+
+type Props = {
+  navigation: CachesListScreenNavigationProp;
+};
+
+const Stack = createStackNavigator();
+
+const CachesList: FC<Props> = ({ navigation }) => {
   const [caches, setCaches] = useState<CachesDataSet | undefined>();
   const [radius, setRadius] = useState<string>();
   const location = useContext(LocationContext) as Coordinates;
 
   useEffect(() => {
     const init = async () => {
-      const caches = await getCaches(location, 5000);
-      setCaches(caches);
+      const cachesData = await getCaches(location, 5000);
+      setCaches(cachesData);
     };
     init();
   }, [location]);
@@ -35,8 +57,8 @@ const CachesList = () => {
   };
 
   const searchCaches = async () => {
-    const caches = await getCaches(location, radius ? +radius : undefined);
-    setCaches(caches);
+    const cachesData = await getCaches(location, radius ? +radius : undefined);
+    setCaches(cachesData);
   };
 
   return (
@@ -66,7 +88,13 @@ const CachesList = () => {
 
             <SectionList
               renderItem={({ item }) => (
-                <View style={styles.itemContainer}>
+                <TouchableOpacity
+                  style={styles.itemContainer}
+                  onPress={() =>
+                    navigation.navigate('Cache', {
+                      key: item.key,
+                    })
+                  }>
                   <IoniconsIcons
                     name="pin"
                     color={colors.accentPrimary}
@@ -74,7 +102,7 @@ const CachesList = () => {
                   />
 
                   <Text style={styles.item}>{item.name}</Text>
-                </View>
+                </TouchableOpacity>
               )}
               sections={Object.keys(caches).map(key => ({
                 title: key,
@@ -92,6 +120,24 @@ const CachesList = () => {
     </SafeAreaView>
   );
 };
+
+const screenOptions = {
+  headerStyle: {
+    backgroundColor: colors.dark,
+  },
+  headerTintColor: colors.font,
+};
+
+const CachesListWrapper = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Caches"
+      component={CachesList}
+      options={screenOptions}
+    />
+    <Stack.Screen name="Cache" component={Cache} options={screenOptions} />
+  </Stack.Navigator>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -152,4 +198,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CachesList;
+export default CachesListWrapper;
