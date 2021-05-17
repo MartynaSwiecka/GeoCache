@@ -24,3 +24,30 @@ export interface DayForecast {
 export interface ForecastDataSet {
   [day: string]: DayForecast;
 }
+
+export interface Cache {
+  name: string;
+  type: string;
+  key: string;
+}
+
+export interface CachesDataSet {
+  [id: string]: Cache[];
+}
+
+export interface CacheDetails {
+  name: string;
+  short_description: string;
+  size2: string;
+  difficulty: number;
+  recommendations: number;
+  rating_votes: number;
+  rating: number;
+  founds: number;
+  watchers: number;
+  images: {
+    is_spoiler: string;
+    uuid: string;
+    thumb_url: string;
+  }[];
+}

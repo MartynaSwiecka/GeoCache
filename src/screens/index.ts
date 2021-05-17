@@ -1,2 +1,3 @@
 export { default as Welcome } from './Welcome';
-export { default as Map } from './Map';
+export { default as CachesList } from './CachesList';
+export { default as Cache } from './Cache';
