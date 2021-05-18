@@ -129,14 +129,16 @@ const screenOptions = {
 };
 
 const CachesListWrapper = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="Caches"
-      component={CachesList}
-      options={screenOptions}
-    />
-    <Stack.Screen name="Cache" component={Cache} options={screenOptions} />
-  </Stack.Navigator>
+  <View style={styles.container}>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Caches"
+        component={CachesList}
+        options={screenOptions}
+      />
+      <Stack.Screen name="Cache" component={Cache} options={screenOptions} />
+    </Stack.Navigator>
+  </View>
 );
 
 const styles = StyleSheet.create({
