@@ -121,23 +121,25 @@ const CachesList: FC<Props> = ({ navigation }) => {
   );
 };
 
-const screenOptions = {
-  headerStyle: {
-    backgroundColor: colors.dark,
-  },
-  headerTintColor: colors.font,
-};
-
 const CachesListWrapper = () => (
   <View style={styles.container}>
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Caches"
-        component={CachesList}
-        options={screenOptions}
-      />
-      <Stack.Screen name="Cache" component={Cache} options={screenOptions} />
-    </Stack.Navigator>
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Caches"
+      component={CachesList}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Cache"
+      component={Cache}
+      options={{
+        headerStyle: {
+          backgroundColor: colors.dark,
+        },
+        headerTintColor: colors.font,
+      }}
+    />
+  </Stack.Navigator>
   </View>
 );
 
