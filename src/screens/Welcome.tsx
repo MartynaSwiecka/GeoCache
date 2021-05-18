@@ -70,8 +70,8 @@ const App = () => {
               <Text style={styles.day}>{day}</Text>
               <View style={styles.forecastContainer}>
                 <Text>
-                  Temperature:
-                  {roundHalf(forecast[day].weather['12:00'].airTemperature.sg)}
+                  Temperature:{' '}
+                  {roundHalf(forecast[day].weather['12:00']?.airTemperature.sg)}
                   °C
                 </Text>
                 <View>
@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
   welcomeText: {
     marginBottom: 30,
     fontSize: 30,
-    color: colors.font,
   },
   dayContainer: {
     marginBottom: 10,
@@ -115,11 +114,11 @@ const styles = StyleSheet.create({
   day: {
     marginBottom: 2,
     fontSize: 20,
-    color: colors.font,
   },
   forecastContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
 

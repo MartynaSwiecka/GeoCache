@@ -44,7 +44,7 @@ const CachesList: FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     const init = async () => {
-      const cachesData = await getCaches(location, 5000);
+      const cachesData = await getCaches(location);
       setCaches(cachesData);
     };
     init();
@@ -122,23 +122,25 @@ const CachesList: FC<Props> = ({ navigation }) => {
 };
 
 const CachesListWrapper = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="Caches"
-      component={CachesList}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="Cache"
-      component={Cache}
-      options={{
-        headerStyle: {
-          backgroundColor: colors.dark,
-        },
-        headerTintColor: colors.font,
-      }}
-    />
-  </Stack.Navigator>
+  <View style={styles.container}>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Caches"
+        component={CachesList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Cache"
+        component={Cache}
+        options={{
+          headerStyle: {
+            backgroundColor: colors.dark,
+          },
+          headerTintColor: colors.font,
+        }}
+      />
+    </Stack.Navigator>
+  </View>
 );
 
 const styles = StyleSheet.create({

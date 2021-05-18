@@ -1,5 +1,5 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, View, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, Image } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { Text } from '../components';
 import { colors } from '../styles/colors';
@@ -39,7 +39,7 @@ const Cache: FC<Props> = ({
       {!cache ? (
         <Text>Loading</Text>
       ) : (
-        <View>
+        <ScrollView>
           <Text style={styles.title}>{cache.name}</Text>
           <Text style={styles.description}>{cache.short_description}</Text>
           <Text style={styles.info}>Size: {cache.size2}</Text>
@@ -66,7 +66,7 @@ const Cache: FC<Props> = ({
                 />
               ),
           )}
-        </View>
+        </ScrollView>
       )}
     </SafeAreaView>
   );

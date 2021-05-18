@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface Coordinates {
   latitude: number;
   longitude: number;
@@ -6,6 +8,13 @@ export interface Coordinates {
 export interface DayAstronomyData {
   sunrise: string;
   sunset: string;
+  time: string;
+}
+
+export interface DayWeatherData {
+  airTemperature: {
+    sg: number;
+  };
   time: string;
 }
 
@@ -50,4 +59,9 @@ export interface CacheDetails {
     uuid: string;
     thumb_url: string;
   }[];
+}
+
+export interface AuthProviderValue {
+  isAuthenticated: boolean;
+  setAuthenticated: Dispatch<SetStateAction<boolean>>;
 }
