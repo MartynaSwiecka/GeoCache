@@ -1,17 +1,25 @@
 import 'react-native-gesture-handler';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import IoniconsIcons from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator } from '@react-navigation/stack';
 import LocationProvider from './src/services/context/LocationProvider';
-import { Welcome, CachesList } from './src/screens';
-
+import { Login } from './src/screens';
 import { colors } from './src/styles/colors';
+import Root from './Root';
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const screenOptions = {
+  headerStyle: {
+    backgroundColor: colors.dark,
+  },
+  headerTintColor: colors.font,
+};
 
 const App = () => {
+  const [isAuthenticated, setAuthenticated] = useState(false);
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -19,38 +27,25 @@ const App = () => {
   return (
     <LocationProvider>
       <NavigationContainer>
-        <Tab.Navigator
-          initialRouteName="Welcome"
-          tabBarOptions={{
-            tabStyle: {
-              backgroundColor: colors.dark,
-            },
-            activeTintColor: colors.accentPrimary,
-            inactiveTintColor: colors.accentSecondary,
-            style: { backgroundColor: colors.dark },
-            labelPosition: 'beside-icon',
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
           }}>
-          <Tab.Screen
-            name="Welcome"
-            component={Welcome}
-            options={{
-              tabBarLabel: 'Home',
-              tabBarIcon: ({ color, size }) => (
-                <IoniconsIcons name="home-outline" color={color} size={size} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="CachesList"
-            component={CachesList}
-            options={{
-              tabBarLabel: 'Caches',
-              tabBarIcon: ({ color, size }) => (
-                <IoniconsIcons name="map-outline" color={color} size={size} />
-              ),
-            }}
-          />
-        </Tab.Navigator>
+          {!isAuthenticated ? (
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={screenOptions}
+              initialParams={{ setAuthenticated }}
+            />
+          ) : (
+            <Stack.Screen
+              name="GeoCache"
+              component={Root}
+              options={screenOptions}
+            />
+          )}
+        </Stack.Navigator>
       </NavigationContainer>
     </LocationProvider>
   );
