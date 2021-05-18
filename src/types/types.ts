@@ -9,6 +9,13 @@ export interface DayAstronomyData {
   time: string;
 }
 
+export interface DayWeatherData {
+  airTemperature: {
+    sg: number;
+  };
+  time: string;
+}
+
 export interface DayForecast {
   sunrise: string;
   sunset: string;
