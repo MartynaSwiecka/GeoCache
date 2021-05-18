@@ -1,11 +1,13 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LocationProvider from './src/services/context/LocationProvider';
 import { Login } from './src/screens';
 import { colors } from './src/styles/colors';
+import AuthProvider, { AuthContext } from './src/services/context/AuthProvider';
+import { AuthProviderValue } from './src/types/types';
 import Root from './Root';
 
 const Stack = createStackNavigator();
@@ -18,7 +20,9 @@ const screenOptions = {
 };
 
 const App = () => {
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const { isAuthenticated, setAuthenticated } = useContext<AuthProviderValue>(
+    AuthContext,
+  );
 
   useEffect(() => {
     SplashScreen.hide();
@@ -51,4 +55,10 @@ const App = () => {
   );
 };
 
-export default App;
+const AppWithAuthContext = () => (
+  <AuthProvider>
+    <App />
+  </AuthProvider>
+);
+
+export default AppWithAuthContext;

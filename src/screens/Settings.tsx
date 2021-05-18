@@ -1,28 +1,19 @@
-import React, { FC } from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Button } from 'react-native';
-import { StackActions } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { resetGenericPassword } from 'react-native-keychain';
-
 import { colors } from '../styles/colors';
+import { AuthContext } from '../services/context/AuthProvider';
 import auth0 from '../services/auth/authService';
+import { AuthProviderValue } from '../types/types';
 
-type RootStackParamList = {
-  Settings: undefined;
-};
+const Settings = () => {
+  const { setAuthenticated } = useContext<AuthProviderValue>(AuthContext);
 
-type SettingsScreenNavigationProp = StackNavigationProp<RootStackParamList>;
-
-type Props = {
-  navigation: SettingsScreenNavigationProp;
-};
-
-const Settings: FC<Props> = ({ navigation }) => {
   const logout = async () => {
     try {
       await auth0.webAuth.clearSession();
       await resetGenericPassword();
-      navigation.dispatch(StackActions.popToTop());
+      setAuthenticated(false);
     } catch (error) {
       console.log(error);
     }

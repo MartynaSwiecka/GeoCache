@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface Coordinates {
   latitude: number;
   longitude: number;
@@ -57,4 +59,9 @@ export interface CacheDetails {
     uuid: string;
     thumb_url: string;
   }[];
+}
+
+export interface AuthProviderValue {
+  isAuthenticated: boolean;
+  setAuthenticated: Dispatch<SetStateAction<boolean>>;
 }
